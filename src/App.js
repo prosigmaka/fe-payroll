@@ -13,7 +13,6 @@ import LeaveReqForm from './components/sections/user/LeaveReqForm';
 import SalarySlipList from './components/sections/user/SalarySlipList';
 import SalarySlip from './components/sections/user/SalarySlip';
 
-
 function App() {
   return (
     <>
@@ -21,12 +20,14 @@ function App() {
         <Route path="/" element={<Navigate replace to="/dashboard" />} />
 
         <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="admin" element={<Navigate replace to="summary" />} />
           <Route path="admin" element={<DashboardAdmin />}>
             <Route path="summary" element={<AdminSummary />} />
             <Route path="approval-panel" element={<ApprovalPanel />} />
             <Route path="payroll-panel" element={<PayrollPanel />} />
           </Route>
-          <Route path="user" element={<DashboardUser />} >
+          <Route path="user" element={<Navigate replace to="summary" />} />
+          <Route path="user" element={<DashboardUser />}>
             <Route path="summary" element={<UserSummary />} />
             <Route path="leave-request" element={<LeaveReqForm />} />
             <Route path="payroll-history" element={<SalarySlipList />} />
