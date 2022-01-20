@@ -4,6 +4,7 @@ export const SalaryData = [
     name: "Karyawan A",
     division: "Developer Team",
     jobTitle: "Fullstack Developer",
+    paymentId: "001",
     paymentPeriod: "Monthly",
     paymentDate: "01 January 9999",
     workDays: "20",
