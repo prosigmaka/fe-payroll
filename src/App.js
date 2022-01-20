@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 // Page Components
 import Dashboard from './components/pages/Dashboard';
+import Login from './components/pages/Login';
 // Admin Section Components
 import DashboardAdmin from './components/sections/admin/DashboardAdmin';
 import AdminSummary from './components/sections/admin/AdminSummary';
@@ -18,6 +19,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Navigate replace to="/dashboard" />} />
+        <Route path="/login" element={<Login />} />
 
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="admin" element={<Navigate replace to="summary" />} />
