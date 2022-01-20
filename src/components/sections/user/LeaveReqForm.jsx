@@ -11,7 +11,7 @@ import { FormControlLabel } from "@mui/material";
 import { FormLabel } from "@mui/material";
 import { FormControl } from "@mui/material";
 import { RadioGroup } from "@mui/material";
-import BasicDateRangePicker from './uidate';
+import BasicDateRangePicker from './uiDateRangePicker';
 
 const LeaveReqForm = (props) => {
   const [employeeID, setEmployeeID] = useState("");
