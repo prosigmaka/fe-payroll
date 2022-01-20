@@ -102,6 +102,7 @@ const SalarySlip = (props) => {
               variant="contained"
               startIcon={<DownloadIcon />}
               onClick={handlePDFExport}
+              sx={{ color: "white" }}
             >
               Export
             </Button>
