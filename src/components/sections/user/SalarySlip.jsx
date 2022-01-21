@@ -90,7 +90,7 @@ const SalarySlip = (props) => {
         px: 3,
       }}
     >
-      <Grid container>
+      <Grid container sx={{ mx: "auto", maxWidth: "70%" }}>
         <Grid item xs={12} container sx={{ mb: 3, alignItems: "center" }}>
           <Grid item xs={8}>
             <Typography variant="h5">Salary Detail</Typography>

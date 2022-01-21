@@ -1,12 +1,14 @@
 export const SalaryData = [
   {
+    link: "/salary-slip",
     employeeId: "001",
     name: "Karyawan A",
     division: "Developer Team",
     jobTitle: "Fullstack Developer",
     paymentId: "001",
     paymentPeriod: "Monthly",
-    paymentDate: "01 January 9999",
+    paymentDate: "01 January 2022",
+    paymentStatus: "Paid",
     workDays: "20",
     workHours: "80",
     overtimeHours: "0",
