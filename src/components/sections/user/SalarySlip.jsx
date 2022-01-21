@@ -1,3 +1,4 @@
+import DownloadIcon from "@mui/icons-material/Download";
 import {
   Box,
   Button,
@@ -13,14 +14,12 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Stack,
 } from "@mui/material";
-import React, { useRef } from "react";
-import DownloadIcon from "@mui/icons-material/Download";
-import logo from "../../../img/prosigmaka-transparan-scaled.png";
 import { styled } from "@mui/system";
-import { SalaryData } from "../../../fakeDb/dataDetail";
 import { PDFExport } from "@progress/kendo-react-pdf";
+import React, { useRef } from "react";
+import { SalaryData } from "../../../fakeDb/dataDetail";
+import logo from "../../../img/prosigmaka-transparan-scaled.png";
 import "../../../styles/section/user/PdfExport.css";
 
 const SalarySlip = (props) => {
@@ -51,7 +50,7 @@ const SalarySlip = (props) => {
     maxHeight: "100%",
   });
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#0A0708",
       color: "white",
@@ -63,7 +62,7 @@ const SalarySlip = (props) => {
     },
   }));
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  const StyledTableRow = styled(TableRow)(() => ({
     "&:nth-of-type(odd)": {
       backgroundColor: "white",
     },
@@ -125,195 +124,288 @@ const SalarySlip = (props) => {
                   />
                 </Grid>
                 {SalaryData.map((data, index) => (
-                  <Grid item xs={12} container key={index} spacing={3}>
-                    <Grid item xs={6}>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+                  <Grid
+                    item
+                    xs={12}
+                    direction="column"
+                    container
+                    key={index}
+                    spacing={3}
+                  >
+                    <Grid item xs={12} container spacing={3}>
+                      <Grid item xs={6}>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Employee ID
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Employee ID
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.employeeId}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.employeeId}
-                          </Typography>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Employee Name
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
+                          >
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.name}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Division
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
+                          >
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.division}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Job Title
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
+                          >
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.jobTitle}
+                            </Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+                      <Grid item xs={6}>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Payment ID
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Employee Name
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.paymentId}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.name}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Payment Period
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Division
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.paymentPeriod}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.division}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Payment Date
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Job Title
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.jobTitle}
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.paymentDate}
+                            </Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+
+                    <Grid item xs={12} container spacing={3}>
+                      <Grid item xs={6}>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Work Days
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Payment Period
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.workDays}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.paymentPeriod}
-                          </Typography>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Work Hours
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
+                          >
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.workHours}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Overtime Hours
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
+                          >
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.overtimeHours}
+                            </Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+                      <Grid item xs={6}>
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Absence
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Payment Date
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.absence}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.paymentDate}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
+                        <Grid item xs={12} container>
+                          <Grid item xs={12} sm={5}>
+                            <Typography
+                              variant="body2"
+                              mb={0.5}
+                              fontWeight="bold"
+                              fontSize={12}
+                            >
+                              Leave Balance
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={7}
+                            sx={{ mb: { xs: 1, sm: 0 } }}
                           >
-                            Work Days
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.workDays}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Work Hours
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.workHours}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Overtime Hours
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.overtimeHours}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Absence
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.absence}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Leave Balance
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {data.leaveBalance}
-                          </Typography>
+                            <Typography variant="body2" mb={0.5} fontSize={12}>
+                              {data.leaveBalance}
+                            </Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
