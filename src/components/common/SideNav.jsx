@@ -1,5 +1,7 @@
 import { styled, useTheme } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import MuiDrawer from '@mui/material/Drawer';
+import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -71,6 +73,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   },
 }));
 
+const LinkStyled = styled(Link)(({ theme, open }) => ({
+  color: theme.palette.common.main,
+  textDecoration: 'none',
+  fontWeight: 500,
+}));
+
 const SideBarNav = (props) => {
   const theme = useTheme();
 
@@ -85,18 +93,26 @@ const SideBarNav = (props) => {
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItem button key={"Dashboard"}>
-          <ListItemIcon><DashboardIcon></DashboardIcon> </ListItemIcon>
-          <ListItemText primary={"Dashboard"}></ListItemText>
+        <LinkStyled to="/dashboard/user/summary" component={RouterLink}>
+          <ListItem button key={'Dashboard'}>
+            <ListItemIcon><DashboardIcon /></ListItemIcon>
+            <ListItemText primary={'Dashboard'}></ListItemText>
+          </ListItem>
+        </LinkStyled>
+
+        <LinkStyled to="/dashboard/user/payroll-history" component={RouterLink}>
+          <ListItem button key={'Payroll History'}>
+          <ListItemIcon><ReceiptIcon/></ListItemIcon>
+          <ListItemText primary={'Payroll History'}></ListItemText>
         </ListItem>
-        <ListItem button key={"Salary Slip"}>
-          <ListItemIcon><ReceiptIcon></ReceiptIcon> </ListItemIcon>
-          <ListItemText primary={"Salary Slip"}></ListItemText>
+        </LinkStyled>
+
+        <LinkStyled to="/dashboard/user/leave-request" component={RouterLink}>
+        <ListItem button key={'Leave Request'}>
+          <ListItemIcon><EmailIcon/></ListItemIcon>
+          <ListItemText primary={'Leave Request'}></ListItemText>
         </ListItem>
-        <ListItem button key={"Leave Request"}>
-          <ListItemIcon><EmailIcon></EmailIcon> </ListItemIcon>
-          <ListItemText primary={"Leave Request"}></ListItemText>
-        </ListItem>
+        </LinkStyled>   
       </List>
       <Divider />
     </Drawer>

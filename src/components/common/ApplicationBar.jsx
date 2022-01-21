@@ -9,7 +9,6 @@ import Badge from '@mui/material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 const drawerWidth = 240;
 
@@ -37,12 +36,13 @@ const AppBar = styled(MuiAppBar, {
 
 
 const ApplicationBar = (props) => {
-    const openHandler = () => props.openDrawer(true);
+    // const openHandler = () => props.openDrawer(true);
     return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" open={props.status} sx={{boxShadow: 'none'}}>
+      {/* <AppBar position="fixed" open={props.status} sx={{boxShadow: 'none'}}> */}
+      <AppBar position="fixed" open={props.status}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -54,7 +54,7 @@ const ApplicationBar = (props) => {
             onClick={openHandler}
           >
             <ChevronLeftIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Content Title (Temp)
           </Typography>
