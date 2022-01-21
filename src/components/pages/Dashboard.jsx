@@ -1,14 +1,21 @@
 import { Header, Nav, Main, Footer } from '../layout';
+import { styled } from '@mui/material/styles';
 import ApplicationBar from './../common/ApplicationBar';
 import SideNav from './../common/SideNav';
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 
+const MainWrapper = styled('div')(`
+  padding-left: 3rem;
+  padding-top: 3rem;
+`)
+
 const Dashboard = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const drawerHandler = () => setIsOpen(!isOpen);
-  console.log(isOpen);
+  
+
   return (
     <>
       <Header>
@@ -23,7 +30,9 @@ const Dashboard = (props) => {
       </Nav>
 
       <Main>
+        <MainWrapper>
         <Outlet />
+        </MainWrapper>
       </Main>
 
       <Footer>

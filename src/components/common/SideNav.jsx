@@ -32,7 +32,7 @@ const closedMixin = (theme) => ({
   backgroundColor: theme.palette.primary.main,
   //   backgroundColor: theme.palette.common.neutral_white_medium,
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(5)})`,
+  width: `calc(${theme.spacing(6)})`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(7)})`,
   },
