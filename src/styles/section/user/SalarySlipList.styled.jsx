@@ -35,7 +35,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 
 export const Status = styled('span')((props) => ({
   backgroundColor:
-    props.status === 'Completed' ? props.theme.palette.common.success : props.theme.palette.common.pending,
+    props.status === 'Paid' ? props.theme.palette.common.success : props.theme.palette.common.pending,
   color: props.theme.palette.common.main,
   padding: '.3rem',
   fontSize: '.8rem',
