@@ -1,17 +1,17 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from "react-router-dom";
 // Page Components
-import Dashboard from './components/pages/Dashboard';
+import Dashboard from "./components/pages/Dashboard";
 // Admin Section Components
-import DashboardAdmin from './components/sections/admin/DashboardAdmin';
-import AdminSummary from './components/sections/admin/AdminSummary';
-import ApprovalPanel from './components/sections/admin/ApprovalPanel';
-import PayrollPanel from './components/sections/admin/PayrollPanel';
+import DashboardAdmin from "./components/sections/admin/DashboardAdmin";
+import AdminSummary from "./components/sections/admin/AdminSummary";
+import ApprovalPanel from "./components/sections/admin/ApprovalPanel";
+import PayrollPanel from "./components/sections/admin/PayrollPanel";
 // User Section Components
-import DashboardUser from './components/sections/user/DashboardUser';
-import UserSummary from './components/sections/user/UserSummary';
-import LeaveReqForm from './components/sections/user/LeaveReqForm';
-import SalarySlipList from './components/sections/user/SalarySlipList';
-import SalarySlip from './components/sections/user/SalarySlip';
+import DashboardUser from "./components/sections/user/DashboardUser";
+import UserSummary from "./components/sections/user/UserSummary";
+import LeaveReqForm from "./components/sections/user/LeaveReqForm";
+import SalarySlipList from "./components/sections/user/SalarySlipList";
+import SalarySlip from "./components/sections/user/SalarySlip";
 
 function App() {
   return (
