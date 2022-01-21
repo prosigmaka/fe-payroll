@@ -1,3 +1,4 @@
+import DownloadIcon from "@mui/icons-material/Download";
 import {
   Box,
   Button,
@@ -13,14 +14,12 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Stack,
 } from "@mui/material";
-import React, { useRef } from "react";
-import DownloadIcon from "@mui/icons-material/Download";
-import logo from "../../../img/prosigmaka-transparan-scaled.png";
 import { styled } from "@mui/system";
-import { SalaryData } from "../../../fakeDb/dataDetail";
 import { PDFExport } from "@progress/kendo-react-pdf";
+import React, { useRef } from "react";
+import { SalaryData } from "../../../fakeDb/dataDetail";
+import logo from "../../../img/prosigmaka-transparan-scaled.png";
 import "../../../styles/section/user/PdfExport.css";
 
 const SalarySlip = (props) => {
@@ -51,7 +50,7 @@ const SalarySlip = (props) => {
     maxHeight: "100%",
   });
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#0A0708",
       color: "white",
@@ -63,7 +62,7 @@ const SalarySlip = (props) => {
     },
   }));
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  const StyledTableRow = styled(TableRow)(() => ({
     "&:nth-of-type(odd)": {
       backgroundColor: "white",
     },
