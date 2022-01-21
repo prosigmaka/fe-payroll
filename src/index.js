@@ -11,11 +11,12 @@ import theme from './styles/theme/Theme';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
     </BrowserRouter>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
