@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 
 
 
-export default function LeaveReqForm() {
+const PermissionReqForm = (props) => {
 
     /*const [employeeID, setEmployeeID] = useState("");
     const [employeeName, setEmployeeName] = useState("");
@@ -84,7 +84,7 @@ export default function LeaveReqForm() {
 
         <Container sx={{ width: '60rem' }} marginTop={5} >
             <Typography sx={{ flex: '1 1 100%' }} variant="h3" >
-                Leave Form
+                Permission Form
             </Typography>
             <Box
 
@@ -102,6 +102,7 @@ export default function LeaveReqForm() {
                 </Typography>
 
 
+          
                 <Grid
 
                     container
@@ -241,3 +242,5 @@ export default function LeaveReqForm() {
 
 
 }
+
+export default PermissionReqForm;
