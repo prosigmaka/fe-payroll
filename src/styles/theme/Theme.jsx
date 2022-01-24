@@ -55,5 +55,11 @@ export default createTheme({
       fontSize: '1.5rem',
       color: '#4c5352',
     },
+    h4: {
+      fontFamily: "'Work Sans', sans-serif",
+      fontWeight: 500,
+      fontSize: '1.1rem',
+      color: '#4c5352',
+    },
   },
 });
