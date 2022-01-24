@@ -4,7 +4,8 @@ import { TableContainer } from "@mui/material";
 import { TableBody } from "@mui/material";
 import { TableCell } from "@mui/material";
 import { Table } from "@mui/material";
-import { TableFooter } from "@mui/material";
+import { IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -22,11 +23,16 @@ const ReviewApproval = (props) => {
 
   return (
     <>
-      <Typography sx={{ flex: '1 1 100%' }} variant="h3" marginBottom={3}>
-        Request Review
+      <Typography align ="right">
+        <IconButton aria-label="delete" size="small" align="right">
+          <CloseIcon fontSize="inherit" />
+        </IconButton>
       </Typography>
-      <Paper margin={2} elevation={3}  sx={{ boxShadow: '0 1rem 1rem  rgba(0,0,0,0.2)', backgroundColor: 'rgba(214,249,200,255)' }}>
+      <Paper margin={2} elevation={3} sx={{ boxShadow: '0 1rem 1rem  rgba(0,0,0,0.2)', backgroundColor: 'rgba(214,249,200,255)' }}>
 
+        <Typography sx={{ flex: '1 1 100%' }} variant="h3" marginBottom={2} marginTop={2} align="center">
+          Request Review
+        </Typography>
         <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(214,249,200,255)' }}>
           <Table aria-label="custom pagination table">
             <TableBody >
@@ -112,3 +118,4 @@ const ReviewApproval = (props) => {
 };
 
 export default ReviewApproval;
+
