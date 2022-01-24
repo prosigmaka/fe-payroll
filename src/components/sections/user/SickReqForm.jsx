@@ -7,14 +7,13 @@ import { Box } from "@mui/material";
 import { TableRow } from "@mui/material";
 import { Button } from "@mui/material";
 import Container from '@mui/material/Container';
-
 //import BasicDateRangePicker from './uidate';
 
 
 
 
 
-export default function LeaveReqForm() {
+export default function SickReqForm() {
 
     /*const [employeeID, setEmployeeID] = useState("");
     const [employeeName, setEmployeeName] = useState("");
@@ -84,7 +83,7 @@ export default function LeaveReqForm() {
 
         <Container sx={{ width: '60rem' }} marginTop={5} >
             <Typography sx={{ flex: '1 1 100%' }} variant="h3" >
-                Leave Form
+                Sick Form
             </Typography>
             <Box
 
@@ -102,6 +101,7 @@ export default function LeaveReqForm() {
                 </Typography>
 
 
+               
                 <Grid
 
                     container

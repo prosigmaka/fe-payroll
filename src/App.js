@@ -13,6 +13,11 @@ import UserSummary from './components/sections/user/UserSummary';
 import LeaveReqForm from './components/sections/user/LeaveReqForm';
 import SalarySlipList from './components/sections/user/SalarySlipList';
 import SalarySlip from './components/sections/user/SalarySlip';
+import SickReqForm from './components/sections/user/SickReqForm';
+import PermissionReqForm from './components/sections/user/PermissionReqForm';
+import ReviewApproval from './components/sections/admin/ReviewApproval';
+
+
 
 function App() {
   return (
@@ -27,11 +32,14 @@ function App() {
             <Route path="summary" element={<AdminSummary />} />
             <Route path="approval-panel" element={<ApprovalPanel />} />
             <Route path="payroll-panel" element={<PayrollPanel />} />
+            <Route path="review-approval" element={<ReviewApproval/>} />
           </Route>
           <Route path="user" element={<Navigate replace to="summary" />} />
           <Route path="user" element={<DashboardUser />}>
             <Route path="summary" element={<UserSummary />} />
-            <Route path="leave-request" element={<LeaveReqForm />} />
+            <Route path="leave-request" element={<LeaveReqForm/>} />
+            <Route path="sick-request" element={<SickReqForm />} />
+            <Route path="permission-request" element={<PermissionReqForm />} />
             <Route path="payroll-history" element={<SalarySlipList />} />
             <Route path="salary-slip" element={<SalarySlip />} />
           </Route>
