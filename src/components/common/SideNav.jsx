@@ -13,6 +13,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GridViewIcon from "@mui/icons-material/GridView";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import SickIcon from '@mui/icons-material/Sick';
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 
 const drawerWidth = 240;
 
@@ -156,6 +158,8 @@ const SideBarNav = (props) => {
               </ListItem>
             </LinkStyled>
 
+           <Divider/>
+
             <LinkStyled
               to="/dashboard/user/leave-request"
               component={RouterLink}
@@ -167,6 +171,27 @@ const SideBarNav = (props) => {
                 <ListItemText primary={"Leave Request"}></ListItemText>
               </ListItem>
             </LinkStyled>
+
+        <LinkStyled 
+          to="/dashboard/user/sick-request" 
+          component={RouterLink}
+        >
+          <ListItem button key={'Sick Request'}>
+            <ListItemIcon><SickIcon /></ListItemIcon>
+            <ListItemText primary={'Sick Request'}></ListItemText>
+          </ListItem>
+        </LinkStyled>
+
+        <LinkStyled 
+           to="/dashboard/user/permission-request" 
+           component={RouterLink}
+        >
+          <ListItem button key={'Permission Request'}>
+            <ListItemIcon><AirportShuttleIcon /></ListItemIcon>
+            <ListItemText primary={'Permission Request'}></ListItemText>
+          </ListItem>
+        </LinkStyled>
+        <Divider/>
           </>
         )}
       </List>
