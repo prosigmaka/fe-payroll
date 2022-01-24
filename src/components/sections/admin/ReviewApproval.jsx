@@ -87,11 +87,6 @@ const ReviewApproval = (props) => {
                 </TableCell>
               </TableRow>
             </TableBody>
-
-            <TableRow>
-
-
-            </TableRow>
           </Table>
 
           <Typography align="center">
