@@ -81,6 +81,10 @@ const SalarySlip = (props) => {
     pdfExport.current.save();
   };
 
+  const filteredSalarySlip = SalaryData.filter(
+    (item) => item.paymentId === "001"
+  );
+
   return (
     <Box
       sx={{
@@ -92,12 +96,9 @@ const SalarySlip = (props) => {
     >
       <Grid container>
         <Grid item xs={12} container sx={{ mb: 3, alignItems: "center" }}>
-          <Grid item xs={8}>
-            <Typography variant="h5">Salary Detail</Typography>
-          </Grid>
-          <Grid item xs={4} sx={{ textAlign: "end" }}>
+          <Grid item xs={12} sx={{ textAlign: "end" }}>
             <Button
-              size="small"
+              // size="small"
               variant="contained"
               startIcon={<DownloadIcon />}
               onClick={handlePDFExport}
@@ -123,15 +124,8 @@ const SalarySlip = (props) => {
                     sx={{ width: { xs: "100%", sm: "50%" }, mb: 1 }}
                   />
                 </Grid>
-                {SalaryData.map((data, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    direction="column"
-                    container
-                    key={index}
-                    spacing={3}
-                  >
+                {filteredSalarySlip.map((item) => (
+                  <Grid item xs={12} direction="column" container spacing={3}>
                     <Grid item xs={12} container spacing={3}>
                       <Grid item xs={6}>
                         <Grid item xs={12} container>
@@ -152,7 +146,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.employeeId}
+                              {item.employeeId}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -174,7 +168,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.name}
+                              {item.name}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -196,7 +190,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.division}
+                              {item.division}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -218,7 +212,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.jobTitle}
+                              {item.jobTitle}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -242,7 +236,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.paymentId}
+                              {item.paymentId}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -264,7 +258,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.paymentPeriod}
+                              {item.paymentPeriod}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -286,7 +280,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.paymentDate}
+                              {item.paymentDate}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -313,7 +307,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.workDays}
+                              {item.workDays}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -335,7 +329,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.workHours}
+                              {item.workHours}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -357,7 +351,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.overtimeHours}
+                              {item.overtimeHours}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -381,7 +375,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.absence}
+                              {item.absence}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -403,7 +397,7 @@ const SalarySlip = (props) => {
                             sx={{ mb: { xs: 1, sm: 0 } }}
                           >
                             <Typography variant="body2" mb={0.5} fontSize={12}>
-                              {data.leaveBalance}
+                              {item.leaveBalance}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -425,14 +419,14 @@ const SalarySlip = (props) => {
                           </StyledTableCell>
                         </TableRow>
                       </TableHead>
-                      {SalaryData.map((data, index) => (
-                        <TableBody key={index}>
+                      {filteredSalarySlip.map((item) => (
+                        <TableBody>
                           <StyledTableRow>
                             <StyledTableCell component="th" scope="row">
                               Basic Salary
                             </StyledTableCell>
                             <StyledTableCell align="right">
-                              {data.basicSalary}
+                              {item.basicSalary}
                             </StyledTableCell>
                             <StyledTableCell align="right" />
                           </StyledTableRow>
@@ -441,7 +435,7 @@ const SalarySlip = (props) => {
                               BPJS
                             </StyledTableCell>
                             <StyledTableCell align="right" colSpan={2}>
-                              {data.bpjs}
+                              {item.bpjs}
                             </StyledTableCell>
                           </StyledTableRow>
                           <StyledTableRow>
@@ -449,7 +443,7 @@ const SalarySlip = (props) => {
                               Tax
                             </StyledTableCell>
                             <StyledTableCell align="right" colSpan={2}>
-                              {data.tax}
+                              {item.tax}
                             </StyledTableCell>
                           </StyledTableRow>
                           <StyledTableRow>
@@ -464,13 +458,13 @@ const SalarySlip = (props) => {
                               align="right"
                               sx={{ fontWeight: "bold" }}
                             >
-                              {data.basicSalary}
+                              {item.basicSalary}
                             </StyledTableCell>
                             <StyledTableCell
                               align="right"
                               sx={{ fontWeight: "bold" }}
                             >
-                              {data.tax + data.bpjs}
+                              {item.tax + item.bpjs}
                             </StyledTableCell>
                           </StyledTableRow>
                           <StyledTableRow
@@ -496,7 +490,7 @@ const SalarySlip = (props) => {
                                 fontWeight: "bold",
                               }}
                             >
-                              {data.basicSalary - data.tax - data.bpjs}
+                              {item.basicSalary - item.tax - item.bpjs}
                             </StyledTableCell>
                           </StyledTableRow>
                         </TableBody>
