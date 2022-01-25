@@ -103,7 +103,7 @@ const PayrollPanel = (props) => {
   };
 
   return (
-    <Container sx={{ width: "60rem" }}>
+    <Container sx={{ width: "100%", p: "0 !important" }}>
       <Stack
         direction="column"
         justifyContent="center"
