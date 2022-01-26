@@ -1,5 +1,19 @@
 import React from "react";
-import { Button, Card, CardContent, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+
+const linkStyle = {
+  textDecoration: "none",
+  color: "inherit",
+};
 
 function SalaryPaymentForm() {
   return (
@@ -17,12 +31,21 @@ function SalaryPaymentForm() {
             <Grid xs={12} item>
               <TextField label="Salary" fullWidth required />
             </Grid>
-            <Grid xs={12} item>
-              <Button style={{ marginRight: "10px" }} type="submit" variant="contained">
-                Submit
+            <Grid xs={12} item mt={2}>
+              <Button
+                style={{ marginRight: "10px" }}
+                type="submit"
+                variant="contained"
+                sx={{ color: "white" }}
+              >
+                <Link to="/dashboard/admin/payroll-panel" style={linkStyle}>
+                  Submit
+                </Link>
               </Button>
               <Button color="error" variant="contained">
-                Batal
+                <Link to="/dashboard/admin/payroll-panel" style={linkStyle}>
+                  Batal
+                </Link>
               </Button>
             </Grid>
           </Grid>
