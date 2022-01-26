@@ -262,7 +262,7 @@ const PayrollPanel = (props) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
-        count={SalaryData.length}
+        count={filteredPayrollStatus.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
