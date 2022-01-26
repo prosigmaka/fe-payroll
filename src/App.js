@@ -17,6 +17,7 @@ import SickReqForm from "./components/sections/user/SickReqForm";
 import PermissionReqForm from "./components/sections/user/PermissionReqForm";
 import ReviewApproval from "./components/sections/admin/ReviewApproval";
 import SalarySlipReview from "./components/sections/admin/SalarySlipReview";
+import SalaryPaymentForm from "./components/sections/admin/SalaryPaymentForm";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="payroll-panel" element={<PayrollPanel />} />
             <Route path="review-approval" element={<ReviewApproval />} />
             <Route path="review-salary" element={<SalarySlipReview />} />
+            <Route path="payment-form" element={<SalaryPaymentForm />} />
           </Route>
           <Route path="user" element={<Navigate replace to="summary" />} />
           <Route path="user" element={<DashboardUser />}>
