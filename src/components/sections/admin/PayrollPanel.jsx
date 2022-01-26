@@ -33,7 +33,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 import axios from "axios";
-import { SalaryData } from "../../../fakeDb/dataDetail";
+// import { SalaryData } from "../../../fakeDb/dataDetail";
 
 const getYear = () => {
   const currentDate = new Date();
@@ -44,7 +44,7 @@ const PayrollPanel = (props) => {
   const [filterYear, setFilterYear] = useState("2022");
   const [filterMonth, setFilterMonth] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
-  const [data, setData] = useState([]);
+  const [dataPayroll, setDataPayroll] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -54,15 +54,15 @@ const PayrollPanel = (props) => {
     await axios
       .get("http://localhost:8081/v1/dashboard/admin/payroll-panel")
       .then((res) => {
-        setData(res.data);
-        console.log(res.data);
+        setDataPayroll(res.data.data);
+        // console.log(res.data.data);
       });
 
   useEffect(() => {
     payroll();
   }, []);
 
-  console.log(data);
+  console.log(dataPayroll);
 
   const handlerFilterYear = (e) => {
     setFilterYear(e.target.value);
@@ -78,16 +78,16 @@ const PayrollPanel = (props) => {
 
   useDocTitle("Payroll Panel");
 
-  const filteredPayrollYear = SalaryData.filter(
-    (item) => item.paymentDate.includes(filterYear) === true
+  const filteredPayrollYear = dataPayroll.filter(
+    (item) => item.payment_date.includes(filterYear) === true
   );
 
   const filteredPayrollMonth = filteredPayrollYear.filter(
-    (item) => item.paymentDate.includes(filterMonth) === true
+    (item) => item.payment_date.includes(filterMonth) === true
   );
 
   const filteredPayrollStatus = filteredPayrollMonth.filter(
-    (item) => item.paymentStatus.includes(filterStatus) === true
+    (item) => item.payment_status.includes(filterStatus) === true
   );
 
   const handleChangePage = (event, newPage) => {
@@ -161,18 +161,18 @@ const PayrollPanel = (props) => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="01">January</MenuItem>
-                <MenuItem value="02">February</MenuItem>
-                <MenuItem value="03">March</MenuItem>
-                <MenuItem value="04">April</MenuItem>
-                <MenuItem value="05">May</MenuItem>
-                <MenuItem value="06">June</MenuItem>
-                <MenuItem value="07">July</MenuItem>
-                <MenuItem value="08">August</MenuItem>
-                <MenuItem value="09">September</MenuItem>
-                <MenuItem value="10">October</MenuItem>
-                <MenuItem value="11">November</MenuItem>
-                <MenuItem value="12">December</MenuItem>
+                <MenuItem value="January">January</MenuItem>
+                <MenuItem value="Februray">February</MenuItem>
+                <MenuItem value="March">March</MenuItem>
+                <MenuItem value="April">April</MenuItem>
+                <MenuItem value="May">May</MenuItem>
+                <MenuItem value="June">June</MenuItem>
+                <MenuItem value="July">July</MenuItem>
+                <MenuItem value="August">August</MenuItem>
+                <MenuItem value="September">September</MenuItem>
+                <MenuItem value="October">October</MenuItem>
+                <MenuItem value="November">November</MenuItem>
+                <MenuItem value="December">December</MenuItem>
               </Select>
             </FormControl>
             <FormControl variant="standard" sx={{ m: 1, width: 150 }}>
@@ -187,6 +187,7 @@ const PayrollPanel = (props) => {
                   <em>None</em>
                 </MenuItem>
                 <MenuItem value="Paid">Paid</MenuItem>
+                <MenuItem value="Unpaid">Unpaid</MenuItem>
               </Select>
             </FormControl>
           </Stack>
@@ -196,7 +197,7 @@ const PayrollPanel = (props) => {
             alignItems="center"
             spacing={2}
           >
-            <ExportToExcel apiData={data} fileName={fileName} />
+            <ExportToExcel apiData={dataPayroll} fileName={fileName} />
             <Button
               variant="contained"
               size="small"
@@ -230,23 +231,23 @@ const PayrollPanel = (props) => {
             {filteredPayrollStatus
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
-                <StyledTableRow key={row.date}>
+                <StyledTableRow key={row.id}>
                   <TableCell component="th" scope="row">
-                    {row.paymentId}
+                    {row.id_payment}
                   </TableCell>
-                  <TableCell>{row.employeeId}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell align="right">{row.paymentDate}</TableCell>
-                  <TableCell align="right">{row.totalSalary}</TableCell>
+                  <TableCell>{row.id_employee}</TableCell>
+                  <TableCell>{row.full_name}</TableCell>
+                  <TableCell align="right">{row.payment_date}</TableCell>
+                  <TableCell align="right">{row.total_salary}</TableCell>
                   <TableCell align="center">
-                    <Status status={row.paymentStatus}>
-                      {row.paymentStatus}
+                    <Status status={row.payment_status}>
+                      {row.payment_status}
                     </Status>
                   </TableCell>
                   <TableCell align="center">
                     <StyledButton size="small" variant="outlined">
                       <Link
-                        to={`/dashboard/admin/review-salary`}
+                        to={`/dashboard/admin/review-salary/${row.id}`}
                         target="_blank"
                         style={linkStyle}
                       >
