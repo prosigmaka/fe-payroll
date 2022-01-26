@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
-  Card,
-  CardContent,
   Container,
   Paper,
   Stack,
@@ -11,7 +9,6 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
   Typography,
 } from "@mui/material";
@@ -23,9 +20,6 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
 import { SalaryData } from "../../../fakeDb/dataDetail";
-import { DataGrid } from "@mui/x-data-grid";
-import { DataPayroll } from "../../../fakeDb/dataGridPayroll";
-import PayrollPanel from "./PayrollPanel";
 import {
   Status,
   StyledButton,
@@ -44,36 +38,6 @@ const linkStyle = {
   textDecoration: "none",
   color: "inherit",
 };
-
-const approvalItems = [
-  {
-    title: "Leave Request",
-    today: "Today",
-    countToday: "2",
-    week: "This Week",
-    countWeek: "5",
-    month: "This Month",
-    countMonth: "10",
-  },
-  {
-    title: "Leave Permit",
-    today: "Today",
-    countToday: "2",
-    week: "This Week",
-    countWeek: "5",
-    month: "This Month",
-    countMonth: "10",
-  },
-  {
-    title: "Leave Sick",
-    today: "Today",
-    countToday: "2",
-    week: "This Week",
-    countWeek: "5",
-    month: "This Month",
-    countMonth: "10",
-  },
-];
 
 const smallerMixin = (theme) => ({
   [theme.breakpoints.up("xs")]: {
@@ -127,17 +91,6 @@ const IconSize = {
 const filteredPayrollYear = SalaryData.filter(
   (item) => item.paymentDate.includes("2022") === true
 );
-
-const row = SalaryData.map((row) => {
-  return {
-    id: row.employeeId,
-    paymentId: row.paymentId,
-    name: row.name,
-    paymentDate: row.paymentDate,
-    totalSalary: row.totalSalary,
-    paymentStatus: row.paymentStatus,
-  };
-});
 
 function AdminSummary() {
   return (
