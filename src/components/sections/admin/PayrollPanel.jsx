@@ -14,7 +14,9 @@ import {
   TableRow,
   Paper,
   TablePagination,
+  Button,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 import { ExportToExcel } from "../../../hooks/exportToExcel";
 import useDocTitle from "../../../hooks/useDocTitle";
@@ -188,7 +190,24 @@ const PayrollPanel = (props) => {
               </Select>
             </FormControl>
           </Stack>
-          <ExportToExcel apiData={data} fileName={fileName} />
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            spacing={2}
+          >
+            <ExportToExcel apiData={data} fileName={fileName} />
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<AddIcon />}
+              sx={{ color: "white" }}
+            >
+              <Link to="/dashboard/admin/payment-form" style={linkStyle}>
+                New Payroll
+              </Link>
+            </Button>
+          </Stack>
         </Stack>
       </Stack>
       <TableContainer
