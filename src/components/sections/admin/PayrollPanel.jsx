@@ -52,7 +52,7 @@ const PayrollPanel = (props) => {
 
   const payroll = async () =>
     await axios
-      .get("http://localhost:8081/v1/dashboard/admin/payroll-panel")
+      .get("http://localhost:8081/v1/api/admin/payroll-panel")
       .then((res) => {
         setDataPayroll(res.data.data);
         // console.log(res.data.data);
@@ -61,8 +61,6 @@ const PayrollPanel = (props) => {
   useEffect(() => {
     payroll();
   }, []);
-
-  console.log(dataPayroll);
 
   const handlerFilterYear = (e) => {
     setFilterYear(e.target.value);
@@ -89,6 +87,26 @@ const PayrollPanel = (props) => {
   const filteredPayrollStatus = filteredPayrollMonth.filter(
     (item) => item.payment_status.includes(filterStatus) === true
   );
+
+  const datas = filteredPayrollStatus.map((data) => ({
+    id: data.id,
+    id_payment: data.id_payment,
+    id_employee: data.id_employee,
+    full_name: data.full_name,
+    job_title: data.job_title,
+    payment_period: data.payment_period,
+    payment_date: data.payment_date,
+    payment_status: data.payment_status,
+    basic_salary: data.basic_salary,
+    bpjs: data.bpjs,
+    tax: data.tax,
+
+    totalTax: data.basic_salary * data.tax,
+    totalDeductions: data.basic_salary * data.tax + data.bpjs,
+    totalEarnings: data.basic_salary,
+    totalPayment: data.basic_salary * data.tax + data.bpjs - data.basic_salary,
+    // return totalTax;
+  }));
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -119,8 +137,7 @@ const PayrollPanel = (props) => {
           id="tableTitle"
           component="div"
         >
-          {/* Payroll in {filterYear} */}
-          Payroll Panel
+          Payroll Panel {filterYear}
         </Typography>
         <Stack
           direction="row"
@@ -219,7 +236,6 @@ const PayrollPanel = (props) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Payment ID</StyledTableCell>
-              <StyledTableCell>Employee ID</StyledTableCell>
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="right">Payment Date</StyledTableCell>
               <StyledTableCell align="right">Amount</StyledTableCell>
@@ -228,32 +244,36 @@ const PayrollPanel = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredPayrollStatus
+            {datas
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <StyledTableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     {row.id_payment}
                   </TableCell>
-                  <TableCell>{row.id_employee}</TableCell>
                   <TableCell>{row.full_name}</TableCell>
                   <TableCell align="right">{row.payment_date}</TableCell>
-                  <TableCell align="right">{row.total_salary}</TableCell>
+                  <TableCell align="right">
+                    <Stack direction="row" justifyContent="space-between">
+                      <span>Rp</span>
+                      {String(Math.abs(row.totalPayment))}
+                    </Stack>
+                  </TableCell>
                   <TableCell align="center">
                     <Status status={row.payment_status}>
                       {row.payment_status}
                     </Status>
                   </TableCell>
                   <TableCell align="center">
-                    <StyledButton size="small" variant="outlined">
-                      <Link
-                        to={`/dashboard/admin/review-salary/${row.id}`}
-                        target="_blank"
-                        style={linkStyle}
-                      >
+                    <Link
+                      to={`/dashboard/admin/review-salary/${row.id}`}
+                      target="_blank"
+                      style={linkStyle}
+                    >
+                      <StyledButton size="small" variant="outlined">
                         Detail
-                      </Link>
-                    </StyledButton>
+                      </StyledButton>
+                    </Link>
                   </TableCell>
                 </StyledTableRow>
               ))}

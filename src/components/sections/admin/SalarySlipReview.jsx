@@ -4,6 +4,7 @@ import {
   CardContent,
   Grid,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -14,12 +15,35 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React from "react";
-import { SalaryData } from "../../../fakeDb/dataDetail";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import logo from "../../../img/prosigmaka-transparan-scaled.png";
 import "../../../styles/section/user/PdfExport.css";
 
 const SalarySlipReview = (props) => {
+  const [dataPayroll, setDataPayroll] = useState([]);
+
+  const totalTax = dataPayroll.basic_salary * dataPayroll.tax;
+  const totalDeduction = dataPayroll.bpjs + totalTax;
+  const totalEarnings = dataPayroll.basic_salary;
+  const totalPayment = totalEarnings - totalDeduction;
+
+  const url_path = window.location.pathname.split("/");
+  const payrollId = url_path[url_path.length - 1];
+
+  const payrollDetail = async () =>
+    await axios
+      .get(`http://localhost:8081/v1/api/admin/payroll-panel/${payrollId}`)
+      .then((res) => {
+        setDataPayroll(res.data.data);
+        // console.log(res.data.data);
+      });
+
+  useEffect(() => {
+    payrollDetail();
+    // eslint-disable-next-line
+  }, []);
+
   const Img = styled("img")({
     // margin: "auto 0",
     display: "block",
@@ -52,10 +76,6 @@ const SalarySlipReview = (props) => {
     },
   }));
 
-  const filteredSalarySlip = SalaryData.filter(
-    (item) => item.paymentId === "001"
-  );
-
   return (
     <Box
       sx={{
@@ -76,227 +96,123 @@ const SalarySlipReview = (props) => {
                   sx={{ width: { xs: "100%", sm: "50%" }, mb: 1 }}
                 />
               </Grid>
-              {filteredSalarySlip.map((item) => (
-                <Grid item xs={12} direction="column" container spacing={3}>
-                  <Grid item xs={12} container spacing={3}>
-                    <Grid item xs={6}>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Employee ID
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.employeeId}
-                          </Typography>
-                        </Grid>
+              <Grid
+                item
+                xs={12}
+                direction="column"
+                container
+                spacing={3}
+                key={dataPayroll.id}
+              >
+                <Grid item xs={12} container spacing={3}>
+                  <Grid item xs={6}>
+                    <Grid item xs={12} container>
+                      <Grid item xs={12} sm={5}>
+                        <Typography
+                          variant="body2"
+                          mb={0.5}
+                          fontWeight="bold"
+                          fontSize={12}
+                        >
+                          Employee ID
+                        </Typography>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Employee Name
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.name}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Division
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.division}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Job Title
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.jobTitle}
-                          </Typography>
-                        </Grid>
+                      <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
+                        <Typography variant="body2" mb={0.5} fontSize={12}>
+                          {dataPayroll.id_employee}
+                        </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Payment ID
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.paymentId}
-                          </Typography>
-                        </Grid>
+                    <Grid item xs={12} container>
+                      <Grid item xs={12} sm={5}>
+                        <Typography
+                          variant="body2"
+                          mb={0.5}
+                          fontWeight="bold"
+                          fontSize={12}
+                        >
+                          Employee Name
+                        </Typography>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Payment Period
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.paymentPeriod}
-                          </Typography>
-                        </Grid>
+                      <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
+                        <Typography variant="body2" mb={0.5} fontSize={12}>
+                          {dataPayroll.full_name}
+                        </Typography>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Payment Date
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.paymentDate}
-                          </Typography>
-                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} container>
+                      <Grid item xs={12} sm={5}>
+                        <Typography
+                          variant="body2"
+                          mb={0.5}
+                          fontWeight="bold"
+                          fontSize={12}
+                        >
+                          Job Title
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
+                        <Typography variant="body2" mb={0.5} fontSize={12}>
+                          {dataPayroll.job_title}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </Grid>
-
-                  <Grid item xs={12} container spacing={3}>
-                    <Grid item xs={6}>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Work Days
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.workDays}
-                          </Typography>
-                        </Grid>
+                  <Grid item xs={6}>
+                    <Grid item xs={12} container>
+                      <Grid item xs={12} sm={5}>
+                        <Typography
+                          variant="body2"
+                          mb={0.5}
+                          fontWeight="bold"
+                          fontSize={12}
+                        >
+                          Payment ID
+                        </Typography>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Work Hours
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.workHours}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Overtime Hours
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.overtimeHours}
-                          </Typography>
-                        </Grid>
+                      <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
+                        <Typography variant="body2" mb={0.5} fontSize={12}>
+                          {dataPayroll.id_employee}
+                        </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Absence
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.absence}
-                          </Typography>
-                        </Grid>
+                    <Grid item xs={12} container>
+                      <Grid item xs={12} sm={5}>
+                        <Typography
+                          variant="body2"
+                          mb={0.5}
+                          fontWeight="bold"
+                          fontSize={12}
+                        >
+                          Payment Period
+                        </Typography>
                       </Grid>
-                      <Grid item xs={12} container>
-                        <Grid item xs={12} sm={5}>
-                          <Typography
-                            variant="body2"
-                            mb={0.5}
-                            fontWeight="bold"
-                            fontSize={12}
-                          >
-                            Leave Balance
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
-                          <Typography variant="body2" mb={0.5} fontSize={12}>
-                            {item.leaveBalance}
-                          </Typography>
-                        </Grid>
+                      <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
+                        <Typography variant="body2" mb={0.5} fontSize={12}>
+                          {dataPayroll.payment_period}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} container>
+                      <Grid item xs={12} sm={5}>
+                        <Typography
+                          variant="body2"
+                          mb={0.5}
+                          fontWeight="bold"
+                          fontSize={12}
+                        >
+                          Payment Date
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={7} sx={{ mb: { xs: 1, sm: 0 } }}>
+                        <Typography variant="body2" mb={0.5} fontSize={12}>
+                          {dataPayroll.payment_date}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              ))}
+              </Grid>
               <Grid item xs={12} mt={5}>
                 <TableContainer component={Paper}>
                   <Table aria-label="salary table" size="small">
@@ -311,82 +227,98 @@ const SalarySlipReview = (props) => {
                         </StyledTableCell>
                       </TableRow>
                     </TableHead>
-                    {filteredSalarySlip.map((item) => (
-                      <TableBody>
-                        <StyledTableRow>
-                          <StyledTableCell component="th" scope="row">
-                            Basic Salary
-                          </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {item.basicSalary}
-                          </StyledTableCell>
-                          <StyledTableCell align="right" />
-                        </StyledTableRow>
-                        <StyledTableRow>
-                          <StyledTableCell component="th" scope="row">
-                            BPJS
-                          </StyledTableCell>
-                          <StyledTableCell align="right" colSpan={2}>
-                            {item.bpjs}
-                          </StyledTableCell>
-                        </StyledTableRow>
-                        <StyledTableRow>
-                          <StyledTableCell component="th" scope="row">
-                            Tax
-                          </StyledTableCell>
-                          <StyledTableCell align="right" colSpan={2}>
-                            {item.tax}
-                          </StyledTableCell>
-                        </StyledTableRow>
-                        <StyledTableRow>
-                          <StyledTableCell
-                            component="th"
-                            scope="row"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            Total
-                          </StyledTableCell>
-                          <StyledTableCell
-                            align="right"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            {item.basicSalary}
-                          </StyledTableCell>
-                          <StyledTableCell
-                            align="right"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            {item.tax + item.bpjs}
-                          </StyledTableCell>
-                        </StyledTableRow>
-                        <StyledTableRow
+                    <TableBody key={dataPayroll.id}>
+                      <StyledTableRow>
+                        <StyledTableCell component="th" scope="row">
+                          Basic Salary
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Stack direction="row" justifyContent="space-between">
+                            <span>Rp</span>
+                            {String(dataPayroll.basic_salary)}
+                          </Stack>
+                        </StyledTableCell>
+                        <StyledTableCell align="right" />
+                      </StyledTableRow>
+                      <StyledTableRow>
+                        <StyledTableCell component="th" scope="row" colSpan={2}>
+                          BPJS
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Stack direction="row" justifyContent="space-between">
+                            <span>Rp</span>
+                            {String(dataPayroll.bpjs)}
+                          </Stack>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                      <StyledTableRow>
+                        <StyledTableCell component="th" scope="row" colSpan={2}>
+                          Tax
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Stack direction="row" justifyContent="space-between">
+                            <span>Rp</span>
+                            {String(totalTax)}
+                          </Stack>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                      <StyledTableRow>
+                        <StyledTableCell
+                          component="th"
+                          scope="row"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          Total
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          <Stack direction="row" justifyContent="space-between">
+                            <span>Rp</span>
+                            {String(totalEarnings)}
+                          </Stack>
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          <Stack direction="row" justifyContent="space-between">
+                            <span>Rp</span>
+                            {String(totalDeduction)}
+                          </Stack>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                      <StyledTableRow
+                        sx={{
+                          backgroundColor: "#747474 !important",
+                        }}
+                      >
+                        <StyledTableCell
+                          component="th"
+                          scope="row"
+                          colSpan={2}
                           sx={{
-                            backgroundColor: "#747474 !important",
+                            color: "white !important",
+                            fontWeight: "bold",
                           }}
                         >
-                          <StyledTableCell
-                            component="th"
-                            scope="row"
-                            sx={{
-                              color: "white !important",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            Net Payment
-                          </StyledTableCell>
-                          <StyledTableCell
-                            align="right"
-                            colSpan={2}
-                            sx={{
-                              color: "white !important",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {item.basicSalary - item.tax - item.bpjs}
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      </TableBody>
-                    ))}
+                          Net Payment
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          sx={{
+                            color: "white !important",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          <Stack direction="row" justifyContent="space-between">
+                            <span>Rp</span>
+                            {String(totalPayment)}
+                          </Stack>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    </TableBody>
                   </Table>
                 </TableContainer>
               </Grid>
