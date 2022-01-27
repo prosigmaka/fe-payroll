@@ -33,7 +33,7 @@ function App() {
             <Route path="approval-panel" element={<ApprovalPanel />} />
             <Route path="payroll-panel" element={<PayrollPanel />} />
             <Route path="review-approval" element={<ReviewApproval />} />
-            <Route path="review-salary" element={<SalarySlipReview />} />
+            <Route path="review-salary/:id" element={<SalarySlipReview />} />
             <Route path="payment-form" element={<SalaryPaymentForm />} />
           </Route>
           <Route path="user" element={<Navigate replace to="summary" />} />
