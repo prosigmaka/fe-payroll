@@ -33,7 +33,9 @@ const SalarySlipReview = (props) => {
 
   const payrollDetail = async () =>
     await axios
-      .get(`http://localhost:8081/v1/api/admin/payroll-panel/${payrollId}`)
+      .get(
+        `http://localhost:8081/v1/api/admin/payroll-panel/detail/${payrollId}`
+      )
       .then((res) => {
         setDataPayroll(res.data.data);
         // console.log(res.data.data);

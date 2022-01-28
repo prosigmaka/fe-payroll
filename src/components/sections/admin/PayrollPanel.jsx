@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 import axios from "axios";
+import moment from "moment";
 // import { SalaryData } from "../../../fakeDb/dataDetail";
 
 const getYear = () => {
@@ -55,8 +56,10 @@ const PayrollPanel = (props) => {
       .get("http://localhost:8081/v1/api/admin/payroll-panel")
       .then((res) => {
         setDataPayroll(res.data.data);
-        // console.log(res.data.data);
+        console.log(res);
       });
+
+  // console.log(moment(dataPayroll[2].payment_date).format("D MMMM YYYY"));
 
   useEffect(() => {
     payroll();
@@ -81,7 +84,9 @@ const PayrollPanel = (props) => {
   );
 
   const filteredPayrollMonth = filteredPayrollYear.filter(
-    (item) => item.payment_date.includes(filterMonth) === true
+    (item) =>
+      moment(item.payment_date).format("D MMMM YYYY").includes(filterMonth) ===
+      true
   );
 
   const filteredPayrollStatus = filteredPayrollMonth.filter(
@@ -159,6 +164,7 @@ const PayrollPanel = (props) => {
                 value={filterYear}
                 onChange={handlerFilterYear}
                 label="Filter by Year"
+                autoWidth
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -173,13 +179,14 @@ const PayrollPanel = (props) => {
                 labelId="filterByMonth"
                 value={filterMonth}
                 onChange={handlerFilterMonth}
+                autoWidth
                 label="Filter by Month"
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
                 <MenuItem value="January">January</MenuItem>
-                <MenuItem value="Februray">February</MenuItem>
+                <MenuItem value="February">February</MenuItem>
                 <MenuItem value="March">March</MenuItem>
                 <MenuItem value="April">April</MenuItem>
                 <MenuItem value="May">May</MenuItem>
@@ -199,6 +206,7 @@ const PayrollPanel = (props) => {
                 value={filterStatus}
                 onChange={handlerFilterStatus}
                 label="Filter by Status"
+                autoWidth
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -252,7 +260,9 @@ const PayrollPanel = (props) => {
                     {row.id_payment}
                   </TableCell>
                   <TableCell>{row.full_name}</TableCell>
-                  <TableCell align="right">{row.payment_date}</TableCell>
+                  <TableCell align="right">
+                    {moment(row.payment_date).format("D MMMM YYYY")}
+                  </TableCell>
                   <TableCell align="right">
                     <Stack direction="row" justifyContent="space-between">
                       <span>Rp</span>
