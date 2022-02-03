@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -19,13 +19,15 @@ import MailIcon from "@mui/icons-material/Mail";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
-import { SalaryData } from "../../../fakeDb/dataDetail";
+// import { SalaryData } from "../../../fakeDb/dataDetail";
 import {
   Status,
   StyledButton,
   StyledTableCell,
   StyledTableRow,
 } from "../../../styles/section/admin/PayrollPanelStyled";
+import axios from "axios";
+import moment from "moment";
 
 const getYear = () => {
   const currentDate = new Date();
@@ -88,15 +90,48 @@ const IconSize = {
   fontSize: "2rem",
 };
 
-const filteredPayrollYear = SalaryData.filter(
-  (item) => item.paymentDate.includes("2022") === true
-);
-
 function AdminSummary() {
+  const [dataPayroll, setDataPayroll] = useState([]);
+
+  const payroll = async () =>
+    await axios
+      .get("http://localhost:8081/v1/api/admin/payroll-panel")
+      .then((res) => {
+        setDataPayroll(res.data.data);
+        console.log(res);
+      });
+
+  useEffect(() => {
+    payroll();
+  }, []);
+
+  const filteredPayrollYear = dataPayroll.filter(
+    (item) => item.payment_date.includes(getYear()) === true
+  );
+
+  const datas = filteredPayrollYear.map((data) => ({
+    id: data.id,
+    id_payment: data.id_payment,
+    id_employee: data.id_employee,
+    full_name: data.full_name,
+    job_title: data.job_title,
+    payment_period: data.payment_period,
+    payment_date: data.payment_date,
+    payment_status: data.payment_status,
+    basic_salary: data.basic_salary,
+    bpjs: data.bpjs,
+    tax: data.tax,
+
+    totalTax: data.basic_salary * data.tax,
+    totalDeductions: data.basic_salary * data.tax + data.bpjs,
+    totalEarnings: data.basic_salary,
+    totalPayment: data.basic_salary * data.tax + data.bpjs - data.basic_salary,
+    // return totalTax;
+  }));
+
   return (
     <Container mx={5}>
       <Stack
-        container
         direction="row"
         justifyContent="space-between"
         alignItems="center"
@@ -221,7 +256,6 @@ function AdminSummary() {
       {/* <PayrollPanel /> */}
       <Container sx={{ width: "100%", p: "0 !important" }}>
         <Stack
-          container
           direction="row"
           justifyContent="space-between"
           alignItems="center"
@@ -261,7 +295,6 @@ function AdminSummary() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Payment ID</StyledTableCell>
-                <StyledTableCell>Employee ID</StyledTableCell>
                 <StyledTableCell>Name</StyledTableCell>
                 <StyledTableCell align="right">Payment Date</StyledTableCell>
                 <StyledTableCell align="right">Amount</StyledTableCell>
@@ -270,30 +303,36 @@ function AdminSummary() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredPayrollYear.slice(0, 5).map((row) => (
-                <StyledTableRow key={row.date}>
+              {datas.slice(0, 5).map((row) => (
+                <StyledTableRow key={row.id}>
                   <TableCell component="th" scope="row">
-                    {row.paymentId}
+                    {row.id_payment}
                   </TableCell>
-                  <TableCell>{row.employeeId}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell align="right">{row.paymentDate}</TableCell>
-                  <TableCell align="right">{row.totalSalary}</TableCell>
+                  <TableCell>{row.full_name}</TableCell>
+                  <TableCell align="right">
+                    {moment(row.payment_date).format("D MMMM YYYY")}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Stack direction="row" justifyContent="space-between">
+                      <span>Rp</span>
+                      {String(Math.abs(row.totalPayment))}
+                    </Stack>
+                  </TableCell>
                   <TableCell align="center">
-                    <Status status={row.paymentStatus}>
-                      {row.paymentStatus}
+                    <Status status={row.payment_status}>
+                      {row.payment_status}
                     </Status>
                   </TableCell>
                   <TableCell align="center">
-                    <StyledButton size="small" variant="outlined">
-                      <Link
-                        to={`/dashboard/admin/review-salary`}
-                        target="_blank"
-                        style={linkStyle}
-                      >
+                    <Link
+                      to={`/dashboard/admin/review-salary/${row.id}`}
+                      target="_blank"
+                      style={linkStyle}
+                    >
+                      <StyledButton size="small" variant="outlined">
                         Detail
-                      </Link>
-                    </StyledButton>
+                      </StyledButton>
+                    </Link>
                   </TableCell>
                 </StyledTableRow>
               ))}
