@@ -87,6 +87,7 @@ function SalaryPaymentForm() {
         console.log("Post Success, Status Code", res.status);
         console.log(res.data.data);
         setAlertSuccess(true);
+        setAlertFail(false);
         setDataSubmit({
           id_payment: 0,
           id_employee: 0,
@@ -104,6 +105,7 @@ function SalaryPaymentForm() {
       .catch((error) => {
         console.log(error);
         setAlertFail(true);
+        setAlertSuccess(false);
       });
   };
 
