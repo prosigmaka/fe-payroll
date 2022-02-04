@@ -44,6 +44,7 @@ const ApprovalPanel = (props) => {
   const [filterYear, setFilterYear] = useState("2022");
   const [filterMonth, setFilterMonth] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+  const [filterType, setFilterType] = useState("");
   const [dataApproval, setDataApproval] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -76,6 +77,10 @@ const ApprovalPanel = (props) => {
     setFilterStatus(e.target.value);
   };
 
+  const handlerFilterType = (e) => {
+    setFilterType(e.target.value);
+  };
+
   useDocTitle("Approval Panel");
 
   const filteredStartDateYear = dataApproval.filter(
@@ -88,7 +93,11 @@ const ApprovalPanel = (props) => {
       true
   );
 
-  const filteredApprovalStatus = filteredStartDateMonth.filter(
+  const filteredLeaveType = filteredStartDateMonth.filter(
+    (item) => item.leave_type.includes(filterType) === true
+  );
+
+  const filteredApprovalStatus = filteredLeaveType.filter(
     (item) => item.approval_status.includes(filterStatus) === true
   );
 
@@ -161,7 +170,7 @@ const ApprovalPanel = (props) => {
             spacing={4}
           >
             <FormControl variant="standard" sx={{ m: 1, width: 150 }}>
-              <InputLabel id="filterByYear">Filter by Year</InputLabel>
+              <InputLabel id="filterByYear">Year</InputLabel>
               <Select
                 labelId="filterByYear"
                 value={filterYear}
@@ -177,7 +186,7 @@ const ApprovalPanel = (props) => {
               </Select>
             </FormControl>
             <FormControl variant="standard" sx={{ m: 1, width: 150 }}>
-              <InputLabel id="filterByMonth">Filter by Month</InputLabel>
+              <InputLabel id="filterByMonth">Month</InputLabel>
               <Select
                 labelId="filterByMonth"
                 value={filterMonth}
@@ -203,7 +212,24 @@ const ApprovalPanel = (props) => {
               </Select>
             </FormControl>
             <FormControl variant="standard" sx={{ m: 1, width: 150 }}>
-              <InputLabel id="filterByStatus">Filter by Status</InputLabel>
+              <InputLabel id="filterByStatus">Leave Type</InputLabel>
+              <Select
+                labelId="filterByLeaveType"
+                value={filterType}
+                onChange={handlerFilterType}
+                label="Filter by Leave Type"
+                autoWidth
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Annual">Annual Leave</MenuItem>
+                <MenuItem value="Permission">Leave Permission</MenuItem>
+                <MenuItem value="Sick">Sick Leave</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, width: 150 }}>
+              <InputLabel id="filterByStatus">Status</InputLabel>
               <Select
                 labelId="filterByStatus"
                 value={filterStatus}
