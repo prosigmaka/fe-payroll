@@ -92,6 +92,7 @@ const IconSize = {
 
 function AdminSummary() {
   const [dataPayroll, setDataPayroll] = useState([]);
+  const [dataApproval, setDataApproval] = useState([]);
 
   const payroll = async () =>
     await axios
@@ -101,9 +102,48 @@ function AdminSummary() {
         console.log(res);
       });
 
+  const approval = async () =>
+    await axios
+      .get("http://localhost:8081/v1/api/admin/approval")
+      .then((res) => {
+        setDataApproval(res.data.data);
+        console.log(res);
+      });
+
   useEffect(() => {
     payroll();
+    approval();
   }, []);
+
+  const annualLeave = (approvals) => {
+    let countAnnualLeave = 0;
+    for (const leave of approvals) {
+      if (leave.leave_type === "Annual") {
+        countAnnualLeave++;
+      }
+    }
+    return countAnnualLeave;
+  };
+
+  const sickLeave = (approvals) => {
+    let countSickLeave = 0;
+    for (const leave of approvals) {
+      if (leave.leave_type === "Sick") {
+        countSickLeave++;
+      }
+    }
+    return countSickLeave;
+  };
+
+  const leavePermission = (approvals) => {
+    let countLeavePermission = 0;
+    for (const leave of approvals) {
+      if (leave.leave_type === "Permission") {
+        countLeavePermission++;
+      }
+    }
+    return countLeavePermission;
+  };
 
   const filteredPayrollYear = dataPayroll.filter(
     (item) => item.payment_date.includes(getYear()) === true
@@ -184,8 +224,8 @@ function AdminSummary() {
             </Box>
             <Grid container justifyContent="flex-end">
               <Grid item textAlign="right">
-                <Typography variant="h4">Leave Request</Typography>
-                <Value variant="h4">0</Value>
+                <Typography variant="h4">Annual Leave</Typography>
+                <Value variant="h4">{annualLeave(dataApproval)}</Value>
               </Grid>
             </Grid>
           </Item>
@@ -215,8 +255,8 @@ function AdminSummary() {
             </Box>
             <Grid container justifyContent="flex-end">
               <Grid item textAlign="right">
-                <Typography variant="h4">Leave Permit</Typography>
-                <Value variant="h4">0</Value>
+                <Typography variant="h4">Leave Permission</Typography>
+                <Value variant="h4">{leavePermission(dataApproval)}</Value>
               </Grid>
             </Grid>
           </Item>
@@ -246,8 +286,8 @@ function AdminSummary() {
             </Box>
             <Grid container justifyContent="flex-end">
               <Grid item textAlign="right">
-                <Typography variant="h4">Leave Sick</Typography>
-                <Value variant="h4">0</Value>
+                <Typography variant="h4">Sick Leave</Typography>
+                <Value variant="h4">{sickLeave(dataApproval)}</Value>
               </Grid>
             </Grid>
           </Item>
