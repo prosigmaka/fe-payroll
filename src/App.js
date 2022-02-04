@@ -32,7 +32,7 @@ function App() {
             <Route path="summary" element={<AdminSummary />} />
             <Route path="approval-panel" element={<ApprovalPanel />} />
             <Route path="payroll-panel" element={<PayrollPanel />} />
-            <Route path="review-approval" element={<ReviewApproval />} />
+            <Route path="review-approval/:id" element={<ReviewApproval />} />
             <Route path="review-salary/:id" element={<SalarySlipReview />} />
             <Route path="payment-form" element={<SalaryPaymentForm />} />
           </Route>
