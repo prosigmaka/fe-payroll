@@ -289,8 +289,8 @@ const ApprovalPanel = (props) => {
                   </TableCell>
                   <TableCell align="center">
                     <Link
-                      // to={`/dashboard/admin/review-approval/${row.id}`}
-                      to={`/dashboard/admin/review-approval`}
+                      to={`/dashboard/admin/review-approval/${row.id}`}
+                      // to={`/dashboard/admin/review-approval`}
                       target="_blank"
                       style={linkStyle}
                     >
