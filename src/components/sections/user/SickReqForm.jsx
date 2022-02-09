@@ -50,11 +50,9 @@ function SickReqForm() {
 
   const handleSubmit = async () => {
     await axios
-      .post(
-        "http://localhost:8081/v1/api/admin/approval/post/list",
-        dataSubmit,
-        { headers: { "Content-Type": "application/json" } }
-      )
+      .post("http://localhost:8081/v1/api/admin/approval/post", dataSubmit, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((res) => {
         console.log("Post Success, Status Code", res.status);
         console.log(res.data.data);

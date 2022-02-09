@@ -26,9 +26,7 @@ const linkStyle = {
 };
 
 function SalaryPaymentForm() {
-  const [alertSuccess, setAlertSuccess] = useState(false);
-  const [alertFail, setAlertFail] = useState(false);
-  const [dataSubmit, setDataSubmit] = useState({
+  const dataForm = {
     id_payment: 0,
     id_employee: 0,
     full_name: "",
@@ -40,6 +38,11 @@ function SalaryPaymentForm() {
     bpjs: 100000,
     tax: 0.05,
     total_salary: 0,
+  };
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertFail, setAlertFail] = useState(false);
+  const [dataSubmit, setDataSubmit] = useState({
+    ...dataForm,
   });
 
   const handleChange = (event) => {
@@ -51,32 +54,6 @@ function SalaryPaymentForm() {
   };
 
   const handleSubmit = async () => {
-    // e.preventDefault();
-    //   try {
-    //     const response = await axios.post(
-    //       "http://localhost:8081/v1/api/admin/payroll-panel/post",
-    //       dataSubmit
-    //     );
-    //     if (response.status === 201) {
-    //       console.log(response.data);
-    //       setDataSubmit({
-    //         id_payment: 0,
-    //         id_employee: 0,
-    //         full_name: "",
-    //         job_title: "",
-    //         payment_period: "",
-    //         payment_date: "",
-    //         payment_status: "",
-    //         basic_salary: 0,
-    //         bpjs: 100000,
-    //         tax: 0.05,
-    //         total_salary: 0,
-    //       });
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
     await axios
       .post(
         "http://localhost:8081/v1/api/admin/payroll-panel/post",
@@ -89,17 +66,7 @@ function SalaryPaymentForm() {
         setAlertSuccess(true);
         setAlertFail(false);
         setDataSubmit({
-          id_payment: 0,
-          id_employee: 0,
-          full_name: "",
-          job_title: "",
-          payment_period: "",
-          payment_date: "",
-          payment_status: "",
-          basic_salary: 0,
-          bpjs: 100000,
-          tax: 0.05,
-          total_salary: 0,
+          ...dataForm,
         });
       })
       .catch((error) => {
